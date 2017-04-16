@@ -30,7 +30,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Controllers\Movies.js" />
+    <Compile Include="Controllers\GetMoviesController.js" />
+    <Compile Include="Data\MovieDataModel.js" />
+    <Compile Include="Helpers\MsSqlHelper.js" />
     <Compile Include="server.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
@@ -38,6 +40,7 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Data\" />
     <Folder Include="typings\" />
     <Folder Include="typings\globals\" />
     <Folder Include="typings\globals\node\" />
