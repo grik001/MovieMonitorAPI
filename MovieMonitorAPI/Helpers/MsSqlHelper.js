@@ -1,4 +1,5 @@
 ﻿const sql = require('mssql')
+var logging = require('../Helpers/LoggerHelper.js');
 
 //SqlConnection Open
 const config = {
@@ -12,17 +13,20 @@ const config = {
     }
 }
 
-sql.connect(config).then(
-    result => {
-        console.log("connected");
-    },
-    err => {
-        console.log("connection failed");
-    });
+sql.connect(config);
 
 module.exports =
     {
-        ExecuteQuery: function (queryScript) {
-            return new sql.Request().query(queryScript).catch(err => { console.log(err) });
+        ExecuteQuery: function (queryScript, params) {
+            var request = new sql.Request();
+
+            for (var x = 0; x < params.length; x++) {
+                request.input(params[x].name, params[x].type, params[x].value);
+            }
+
+            return request.query(queryScript).catch(err => {
+                logging.AddLog("ERROR", `MsSqlHelper Execute Query threw and error for : ${token} - err ${err}`);
+                console.log(err)
+            });
         }
     };
